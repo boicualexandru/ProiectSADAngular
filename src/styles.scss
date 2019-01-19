@@ -1,1 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+* {
+    margin: 0;
+    padding: 0;
+  }
+
+@import '~bootstrap/scss/bootstrap-reboot';
+@import '~bootstrap/scss/bootstrap-grid';
+@import '~bootstrap/scss/utilities';
+button:focus { outline: none; }
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+
+.c-pointer{
+    cursor: pointer;
+}
