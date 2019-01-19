@@ -15,3 +15,20 @@ button:focus { outline: none; }
 .c-pointer{
     cursor: pointer;
 }
+
+.page-header{
+    background-color: #E0F7FA;
+    padding-top: 8px;
+    padding-bottom: 8px;
+
+    img{
+        margin-left: 16px;
+        max-width: 100px;
+        max-height: 50px;
+    }
+
+    h2{
+        margin-left: 16px;
+        display: inline;
+    }
+}

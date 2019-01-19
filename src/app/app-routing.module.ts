@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { GraficulPreturilorComponent } from './pages/graficul-preturilor/graficul-preturilor.component';
 import { HomeComponent } from './pages/home/home.component';
+import { SharedMaterialModule } from './sharedMaterial.module';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -13,7 +14,7 @@ const routes: Routes = [
     HomeComponent,
     GraficulPreturilorComponent
   ],
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes), SharedMaterialModule],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
