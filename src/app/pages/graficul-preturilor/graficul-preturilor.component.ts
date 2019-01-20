@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CarModelsService } from 'src/app/services/car-models.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
     selector: 'app-graficul-preturilor',
@@ -15,6 +16,9 @@ export class GraficulPreturilorComponent implements OnInit {
 
     model: string;
     availableModels: string[] = [];
+
+    startDate = new FormControl(new Date());
+    endDate = new FormControl(new Date());
 
 
     public chartType = 'line';
