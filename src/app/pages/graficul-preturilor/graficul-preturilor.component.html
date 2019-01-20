@@ -5,3 +5,26 @@
     <img src="assets/img/bar-chart.png" alt="image">
     <h2 class="align-middle">Grafigul Evolutiei Preturilor</h2>
 </div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-3 p-3">
+            <mat-radio-group [(ngModel)]="combustibil">
+                <mat-radio-button class="d-block" *ngFor="let combustibilOption of combustibilOptions" [value]="combustibilOption">
+                    {{combustibilOption}}
+                </mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div class="col-3">
+            <mat-form-field>
+                <mat-select placeholder="Favorite food">
+                    <mat-option *ngFor="let brand of availableBrands" [value]="brand">
+                        {{brand}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-3"></div>
+        <div class="col-3"></div>
+    </div>
+</div>
