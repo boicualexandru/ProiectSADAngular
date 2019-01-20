@@ -13,10 +13,19 @@ export class GraficulPreturilorComponent implements OnInit {
     brand: string;
     availableBrands: string[] = [];
 
+    model: string;
+    availableModels: string[] = [];
+
     constructor(private carModelsService: CarModelsService) {
         this.carModelsService.getAllBrands()
             .subscribe(allBrands => this.availableBrands = allBrands);
     }
 
     ngOnInit(): void { }
+
+    onBrandChange(): void {
+        console.log('brand ', this.brand);
+        this.carModelsService.getModelsByBrand(this.brand)
+            .subscribe(models => this.availableModels = models);
+    }
 }

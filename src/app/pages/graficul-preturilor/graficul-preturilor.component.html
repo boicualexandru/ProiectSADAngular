@@ -17,9 +17,16 @@
         </div>
         <div class="col-3">
             <mat-form-field>
-                <mat-select placeholder="Favorite food">
+                <mat-select placeholder="Select Brand" (selectionChange)="onBrandChange($event)" [(ngModel)]="brand">
                     <mat-option *ngFor="let brand of availableBrands" [value]="brand">
                         {{brand}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-select placeholder="Select Model">
+                    <mat-option *ngFor="let mdoel of availableModels" [value]="mdoel">
+                        {{mdoel}}
                     </mat-option>
                 </mat-select>
             </mat-form-field>

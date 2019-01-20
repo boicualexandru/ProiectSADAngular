@@ -15,14 +15,14 @@ export class CarModelsService {
     getAllBrands(): Observable<string[]> {
         return this.http.get<CarBrand[]>('assets/car-list.json')
             .pipe(
-                map(allCars => allCars.map(brand => brand.brand))
+                map(allCars => allCars.map(brand => brand.brand).sort())
             );
     }
 
     getModelsByBrand(brandName: string): Observable<string[]> {
         return this.http.get<CarBrand[]>('assets/car-list.json')
             .pipe(
-                map(allCars => allCars.filter(brand => brand.brand === brandName)[0].models)
+                map(allCars => allCars.filter(brand => brand.brand === brandName)[0].models.sort())
             );
     }
 }
