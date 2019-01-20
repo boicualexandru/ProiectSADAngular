@@ -4,6 +4,7 @@ import { MatButtonModule, MatIconModule, MatRadioModule, MatSelectModule } from 
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { ChartsModule, WavesModule } from 'angular-bootstrap-md';
 
 @NgModule({
     imports: [
@@ -14,7 +15,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
         MatIconModule,
         MatRadioModule,
         MatSelectModule,
-        FormsModule
+        FormsModule,
+        ChartsModule,
+        WavesModule
     ],
     exports: [
         BrowserModule,
@@ -24,7 +27,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
         MatIconModule,
         MatRadioModule,
         MatSelectModule,
-        FormsModule
+        FormsModule,
+        ChartsModule,
+        WavesModule
     ],
 })
 export class SharedCustomModule {}
