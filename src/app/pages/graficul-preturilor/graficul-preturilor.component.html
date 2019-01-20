@@ -2,15 +2,15 @@
     <button mat-icon-button>
         <mat-icon aria-label="Back" routerLink="">arrow_back_ios</mat-icon>
     </button>
-    <img src="assets/img/bar-chart.png" alt="image">
-    <h2 class="align-middle">Grafigul Evolutiei Preturilor</h2>
+    <h2 class="align-middle">Graficul Evolutiei Preturilor</h2>
 </div>
 
-<div class="container">
+
+<div class="container pt-3">
     <div class="row">
         <div class="col-3 p-3">
             <mat-radio-group [(ngModel)]="combustibil">
-                <mat-radio-button class="d-block" *ngFor="let combustibilOption of combustibilOptions" [value]="combustibilOption">
+                <mat-radio-button class="d-block mb-4" *ngFor="let combustibilOption of combustibilOptions" [value]="combustibilOption">
                     {{combustibilOption}}
                 </mat-radio-button>
             </mat-radio-group>
@@ -32,6 +32,8 @@
             </mat-form-field>
         </div>
         <div class="col-3"></div>
-        <div class="col-3"></div>
+        <div class="col-3">
+            <button mat-raised-button color="primary" class="w-100 mt-5">Generate</button>
+        </div>
     </div>
 </div>

@@ -17,7 +17,8 @@ button:focus { outline: none; }
 }
 
 .page-header{
-    background-color: #E0F7FA;
+    background-color: #37474F;
+    color: white;
     padding-top: 8px;
     padding-bottom: 8px;
 
@@ -28,7 +29,10 @@ button:focus { outline: none; }
     }
 
     h2{
-        margin-left: 16px;
         display: inline;
+        font-size: 1.3rem;
+        font-weight: 400;
+        letter-spacing: 1px;
+        margin-left: 8px;
     }
 }
