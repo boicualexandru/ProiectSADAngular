@@ -35,14 +35,13 @@
             <mat-form-field>
                 <input matInput [matDatepicker]="startPicker" placeholder="Start date" [formControl]="startDate">
                 <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
-                <mat-datepicker #startPicker></mat-datepicker>
+                <mat-datepicker #startPicker (yearSelected)="startYearSelected($event)" startView="multi-year"></mat-datepicker>
             </mat-form-field>
             <mat-form-field>
                 <input matInput [matDatepicker]="endPicker" placeholder="End date" [formControl]="endDate">
                 <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
-                <mat-datepicker #endPicker></mat-datepicker>
+                <mat-datepicker #endPicker (yearSelected)="endYearSelected($event)" startView="multi-year"></mat-datepicker>
             </mat-form-field>
-
         </div>
         <div class="col-3">
             <button mat-raised-button color="primary" class="w-100 mt-5">Generate</button>

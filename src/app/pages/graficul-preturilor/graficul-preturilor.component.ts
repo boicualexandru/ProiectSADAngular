@@ -1,11 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CarModelsService } from 'src/app/services/car-models.service';
 import { FormControl } from '@angular/forms';
+import { MatDatepicker, DateAdapter, NativeDateAdapter } from '@angular/material';
+
+class YearOnlyDateAdapter extends NativeDateAdapter {
+
+    format(date: Date, displayFormat: Object): string {
+        return date.getFullYear().toString();
+    }
+}
 
 @Component({
     selector: 'app-graficul-preturilor',
     templateUrl: './graficul-preturilor.component.html',
-    styleUrls: ['./graficul-preturilor.component.scss']
+    styleUrls: ['./graficul-preturilor.component.scss'],
+    providers: [
+        {
+            provide: DateAdapter, useClass: YearOnlyDateAdapter
+        }
+    ]
 })
 export class GraficulPreturilorComponent implements OnInit {
     combustibil: string;
@@ -16,6 +29,9 @@ export class GraficulPreturilorComponent implements OnInit {
 
     model: string;
     availableModels: string[] = [];
+
+    @ViewChild('startPicker', {read: MatDatepicker}) startPicker;
+    @ViewChild('endPicker', {read: MatDatepicker}) endPicker;
 
     startDate = new FormControl(new Date());
     endDate = new FormControl(new Date());
@@ -56,4 +72,16 @@ export class GraficulPreturilorComponent implements OnInit {
 
     public chartClicked(e: any): void { }
     public chartHovered(e: any): void { }
+
+
+    startYearSelected(params) {
+        console.log('startYearSelected');
+        this.startDate.setValue(params);
+        this.startPicker.close();
+    }
+    endYearSelected(params) {
+        console.log('endYearSelected');
+        this.endDate.setValue(params);
+        this.endPicker.close();
+    }
 }
