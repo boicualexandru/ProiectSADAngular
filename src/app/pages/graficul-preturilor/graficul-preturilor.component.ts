@@ -43,7 +43,7 @@ export class GraficulPreturilorComponent implements OnInit {
         { data: [65, 59, 80, 81, 56, 55, 40], label: 'My First dataset' }
     ];
 
-    public chartLabels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+    public chartLabels: Array<any> = ['2013', '2014', '2015', '2016', '2017', '2018', '2019'];
 
     public chartColors: Array<any> = [
         {
