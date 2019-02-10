@@ -44,13 +44,13 @@
             </mat-form-field>
         </div>
         <div class="col-3">
-            <button mat-raised-button color="primary" class="w-100 mt-5">Generate</button>
+            <button mat-raised-button color="primary" class="w-100 mt-5" (click)="generate()">Generate</button>
         </div>
     </div>
 </div>
 
 <div class="container">
-    <canvas mdbChart [chartType]="chartType" [datasets]="chartDatasets" [labels]="chartLabels" [colors]="chartColors"
+    <canvas mdbChart chartType="line" [datasets]="chartDatasets" [labels]="chartLabels" [colors]="chartColors"
         [options]="chartOptions" [legend]="true" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
     </canvas>
 </div>

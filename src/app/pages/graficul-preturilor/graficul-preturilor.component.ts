@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { CarModelsService } from 'src/app/services/car-models.service';
 import { FormControl } from '@angular/forms';
 import { MatDatepicker, DateAdapter, NativeDateAdapter } from '@angular/material';
+import { PricesChartService } from 'src/app/services/prices-chart.service';
+import { PricesChartFilterOptions } from 'src/app/models/pricesChartFilterOptions';
 
 class YearOnlyDateAdapter extends NativeDateAdapter {
 
@@ -36,14 +38,11 @@ export class GraficulPreturilorComponent implements OnInit {
     startDate = new FormControl(new Date());
     endDate = new FormControl(new Date());
 
-
-    public chartType = 'line';
-
+    public chartLabels: Array<any> = []; // ['2013', '2014', '2015', '2016', '2017', '2018', '2019'];
     public chartDatasets: Array<any> = [
-        { data: [65, 59, 80, 81, 56, 55, 40], label: 'My First dataset' }
+        // { data: [65, 59, 80, 81, 56, 55, 40], label: 'My First dataset' }
     ];
 
-    public chartLabels: Array<any> = ['2013', '2014', '2015', '2016', '2017', '2018', '2019'];
 
     public chartColors: Array<any> = [
         {
@@ -54,10 +53,20 @@ export class GraficulPreturilorComponent implements OnInit {
     ];
 
     public chartOptions: any = {
-        responsive: true
+        responsive: true,
+        scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true,
+                callback: function(value, index, values) {
+                    return value + ' €';
+                }
+              }
+            }]
+          }
     };
 
-    constructor(private carModelsService: CarModelsService) {
+    constructor(private carModelsService: CarModelsService, private pricesChartService: PricesChartService) {
         this.carModelsService.getAllBrands()
             .subscribe(allBrands => this.availableBrands = allBrands);
     }
@@ -83,5 +92,25 @@ export class GraficulPreturilorComponent implements OnInit {
         console.log('endYearSelected');
         this.endDate.setValue(params);
         this.endPicker.close();
+    }
+
+    generate() {
+        const filters: PricesChartFilterOptions = {
+            yearRange: {
+                start: 2000,
+                end: 2019
+            },
+            modelId: 85
+        };
+
+        this.pricesChartService.getPricesChartByManufactureDate(filters)
+            .subscribe(dataSet => {
+                console.log(dataSet);
+                this.chartLabels = dataSet.map(yearPrice => yearPrice.year.toString());
+                this.chartDatasets.push({
+                    data: dataSet.map(yearPrice => yearPrice.price),
+                    label: 'test label'
+                });
+            });
     }
 }
