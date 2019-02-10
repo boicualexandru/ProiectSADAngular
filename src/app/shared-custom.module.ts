@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatButtonModule, MatIconModule, MatRadioModule, MatSelectModule, MatDatepickerModule, MatInputModule, MatNativeDateModule, MatFormFieldModule } from '@angular/material';
+import { MatButtonModule, MatIconModule, MatRadioModule, MatSelectModule, MatDatepickerModule, MatInputModule, MatNativeDateModule, MatFormFieldModule, MatCheckboxModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -22,7 +22,8 @@ import { ChartsModule, WavesModule } from 'angular-bootstrap-md';
         WavesModule,
         MatInputModule,
         MatDatepickerModule,
-        MatNativeDateModule
+        MatNativeDateModule,
+        MatCheckboxModule
     ],
     exports: [
         BrowserModule,
@@ -39,7 +40,8 @@ import { ChartsModule, WavesModule } from 'angular-bootstrap-md';
         WavesModule,
         MatInputModule,
         MatDatepickerModule,
-        MatNativeDateModule
+        MatNativeDateModule,
+        MatCheckboxModule
     ],
 })
 export class SharedCustomModule {}

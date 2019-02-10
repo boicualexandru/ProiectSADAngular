@@ -9,42 +9,42 @@
 <div class="container pt-3">
     <div class="row">
         <div class="col-3 p-3">
-            <mat-radio-group [(ngModel)]="combustibil">
-                <mat-radio-button class="d-block mb-4" *ngFor="let combustibilOption of combustibilOptions" [value]="combustibilOption">
-                    {{combustibilOption}}
-                </mat-radio-button>
-            </mat-radio-group>
+            <mat-checkbox class="d-block mb-4" [(ngModel)]="isGasoline">Gasoline</mat-checkbox>
+            <mat-checkbox class="d-block mb-4" [(ngModel)]="isDiesel">Diesel</mat-checkbox>
         </div>
         <div class="col-3">
             <mat-form-field>
-                <mat-select placeholder="Select Brand" (selectionChange)="onBrandChange($event)" [(ngModel)]="brand">
-                    <mat-option *ngFor="let brand of availableBrands" [value]="brand">
-                        {{brand}}
+                <mat-select placeholder="Select Brand" (selectionChange)="onBrandChange($event)" [(ngModel)]="selectedBrand">
+                    <mat-option></mat-option>
+                    <mat-option *ngFor="let brand of availableBrands" [value]="brand.id">
+                        {{brand.name}}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
             <mat-form-field>
-                <mat-select placeholder="Select Model">
-                    <mat-option *ngFor="let mdoel of availableModels" [value]="mdoel">
-                        {{mdoel}}
+                <mat-select placeholder="Select Model" [(ngModel)]="selectedModel">
+                    <mat-option></mat-option>
+                    <mat-option *ngFor="let model of availableModels" [value]="model.id">
+                        {{model.name}}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
         </div>
         <div class="col-3">
             <mat-form-field>
-                <input matInput [matDatepicker]="startPicker" placeholder="Start year" [formControl]="startDate">
+                <input matInput [matDatepicker]="startPicker" placeholder="Start year" [formControl]="startDate" [disabled]="chartLabels.length > 0">
                 <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
                 <mat-datepicker #startPicker (yearSelected)="startYearSelected($event)" startView="multi-year"></mat-datepicker>
             </mat-form-field>
             <mat-form-field>
-                <input matInput [matDatepicker]="endPicker" placeholder="End year" [formControl]="endDate">
+                <input matInput [matDatepicker]="endPicker" placeholder="End year" [formControl]="endDate" [disabled]="chartLabels.length > 0">
                 <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
                 <mat-datepicker #endPicker (yearSelected)="endYearSelected($event)" startView="multi-year"></mat-datepicker>
             </mat-form-field>
         </div>
         <div class="col-3">
-            <button mat-raised-button color="primary" class="w-100 mt-5" (click)="generate()">Generate</button>
+            <button mat-raised-button color="primary" class="w-100 mt-3" (click)="generate()">Generate</button>
+            <button mat-raised-button color="warn" class="w-100 mt-3" (click)="clear()">Clear</button>
         </div>
     </div>
 </div>

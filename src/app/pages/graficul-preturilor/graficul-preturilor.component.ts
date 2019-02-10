@@ -4,6 +4,10 @@ import { FormControl } from '@angular/forms';
 import { MatDatepicker, DateAdapter, NativeDateAdapter } from '@angular/material';
 import { PricesChartService } from 'src/app/services/prices-chart.service';
 import { PricesChartFilterOptions } from 'src/app/models/pricesChartFilterOptions';
+import { Brand } from 'src/app/models/brand';
+import { Model } from 'src/app/models/model';
+import { BrandsModelsService } from 'src/app/services/brands-models.service';
+import { FuelType } from 'src/app/models/fuelType';
 
 class YearOnlyDateAdapter extends NativeDateAdapter {
 
@@ -23,14 +27,14 @@ class YearOnlyDateAdapter extends NativeDateAdapter {
     ]
 })
 export class GraficulPreturilorComponent implements OnInit {
-    combustibil: string;
-    combustibilOptions: string[] = ['Gasoline', 'Diesel'];
+    isGasoline = false;
+    isDiesel = false;
 
-    brand: string;
-    availableBrands: string[] = [];
+    selectedBrand: number;
+    availableBrands: Brand[] = [];
 
-    model: string;
-    availableModels: string[] = [];
+    selectedModel: number;
+    availableModels: Model[] = [];
 
     @ViewChild('startPicker', {read: MatDatepicker}) startPicker;
     @ViewChild('endPicker', {read: MatDatepicker}) endPicker;
@@ -38,16 +42,29 @@ export class GraficulPreturilorComponent implements OnInit {
     startDate = new FormControl(new Date());
     endDate = new FormControl(new Date());
 
-    public chartLabels: Array<any> = []; // ['2013', '2014', '2015', '2016', '2017', '2018', '2019'];
-    public chartDatasets: Array<any> = [
-        // { data: [65, 59, 80, 81, 56, 55, 40], label: 'My First dataset' }
-    ];
+    public chartLabels: Array<any> = [];
+    public chartDatasets: Array<any> = [];
 
 
     public chartColors: Array<any> = [
         {
-            backgroundColor: 'rgba(105, 0, 132, .2)',
-            borderColor: 'rgba(200, 99, 132, .7)',
+            backgroundColor: 'rgba(218,65,103, .2)',
+            borderColor: 'rgba(218,65,103, .7)',
+            borderWidth: 2,
+        },
+        {
+            backgroundColor: 'rgba(138,28,124, .2)',
+            borderColor: 'rgba(138,28,124, .7)',
+            borderWidth: 2,
+        },
+        {
+            backgroundColor: 'rgba(137,157,120, .2)',
+            borderColor: 'rgba(137,157,120, .7)',
+            borderWidth: 2,
+        },
+        {
+            backgroundColor: 'rgba(243,167,18, .2)',
+            borderColor: 'rgba(243,167,18, .7)',
             borderWidth: 2,
         }
     ];
@@ -66,16 +83,17 @@ export class GraficulPreturilorComponent implements OnInit {
           }
     };
 
-    constructor(private carModelsService: CarModelsService, private pricesChartService: PricesChartService) {
-        this.carModelsService.getAllBrands()
+    constructor(private carModelsService: CarModelsService, private pricesChartService: PricesChartService, 
+        private brandsModelsService: BrandsModelsService) {
+        brandsModelsService.getBrands()
             .subscribe(allBrands => this.availableBrands = allBrands);
     }
 
     ngOnInit(): void { }
 
     onBrandChange(): void {
-        console.log('brand ', this.brand);
-        this.carModelsService.getModelsByBrand(this.brand)
+        this.selectedModel = null;
+        this.brandsModelsService.getModelsByBrandId(this.selectedBrand)
             .subscribe(models => this.availableModels = models);
     }
 
@@ -95,22 +113,42 @@ export class GraficulPreturilorComponent implements OnInit {
     }
 
     generate() {
+        const fuelType = this.isDiesel === this.isGasoline ? null :
+            (this.isDiesel ? FuelType.Diesel : FuelType.Gasoline);
+
         const filters: PricesChartFilterOptions = {
             yearRange: {
-                start: 2000,
-                end: 2019
+                start: this.startDate.value.getFullYear(),
+                end: this.endDate.value.getFullYear()
             },
-            modelId: 85
+            brandId: this.selectedBrand,
+            modelId: this.selectedModel,
+            fuelType: fuelType
         };
+
+        console.log(filters);
+
+        const brandModel: Brand | Model = this.availableModels.find(m => m.id === this.selectedModel) ||
+            this.availableBrands.find(b => b.id === this.selectedBrand);
+
+        let label = brandModel != null ? brandModel.name : 'All';
+
+        if (fuelType != null) {
+            label += this.isDiesel ? ' Diesel' : ' Gasoline';
+        }
 
         this.pricesChartService.getPricesChartByManufactureDate(filters)
             .subscribe(dataSet => {
-                console.log(dataSet);
                 this.chartLabels = dataSet.map(yearPrice => yearPrice.year.toString());
                 this.chartDatasets.push({
                     data: dataSet.map(yearPrice => yearPrice.price),
-                    label: 'test label'
+                    label: label
                 });
             });
+    }
+
+    clear() {
+        this.chartLabels = [];
+        this.chartDatasets = [];
     }
 }
