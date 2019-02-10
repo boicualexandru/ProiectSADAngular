@@ -8,6 +8,7 @@ import { SharedCustomModule } from './shared-custom.module';
 import { CarModelsService } from './services/car-models.service';
 import { HttpClientModule } from '@angular/common/http';
 import { PricesChartService } from './services/prices-chart.service';
+import { BrandsModelsService } from './services/brands-models.service';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,7 @@ import { PricesChartService } from './services/prices-chart.service';
     AppRoutingModule,
     SharedCustomModule
   ],
-  providers: [CarModelsService, PricesChartService],
+  providers: [CarModelsService, PricesChartService, BrandsModelsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
